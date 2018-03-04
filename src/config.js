@@ -7,15 +7,15 @@ var dev = (function f() {
 })()
 
 
-const api_root = {
-	production: "http://www.project.com/api",
-	test: "http://test.project.com/api",
+const api_baseURL = {
+	production: "https://cnodejs.org/api/v1",
+	test: "https://cnodejs.org/api/v1",
 };
 const domain_root = "http://www.lingyou.co/";
 
 const config = {
-	APIROOT: api_root.test,
-	DOMAINROOT: domain_root,
+	api_baseURL: api_baseURL.test,
+	domain_root: domain_root,
 	APPID: '12323131',
 }
 

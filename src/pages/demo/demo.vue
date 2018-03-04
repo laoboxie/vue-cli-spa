@@ -11,6 +11,9 @@ import keepAliveMixin from '../../mixins/keepAliveMixin.vue'
 import * as md5 from '../../assets/js/md5.js'
 import guid from '../../assets/js/guid.js'
 import storage from '../../assets/js/storage.js'
+import api from '../../api/apiSetting.js'
+import axios from 'axios'
+import qs from 'qs'
 export default {
     name: '',
     mixins:[keepAliveMixin],
@@ -48,9 +51,33 @@ export default {
             this.scrollToSavedPosition();
         },1000);
 
+        //storage
         storage.session.set('sessionkey',[1,{'a':undefined,'c':'c'},{'b':NaN}]);
         console.log('storage',storage.session.get('sessionkey'));
         
+        //api
+        this.$http(api.success,{'success':1}).then(res=>{
+            console.log('$http',res);
+        })
+        this.$http(api.error,{'error':1}).then(res=>{
+            console.log('$http',res);
+        })
+        this.$http(api.wrong,{'wrong':1}).then(res=>{
+            console.log('$http',res);
+        })
+        this.$http(api.post,{
+            "cmd":'USER_ORDER',
+            "userId":"130",
+            "orderType":"5",
+            "orderFrom":0,
+            "productId":"10","startDate":"20171123","nums":1,"children":1,
+            "msg":"","userName":"22","userTel":"13428987195","totalAmount":2300,
+            "contsList":[{"contsId":"3","ageType":2,"roomId":"1","roomNumber":1}],
+            "feeList":[{"feeId":"1","buyNum":1,"feeType":0},{"feeId":"1","buyNum":1,"feeType":1},
+            {"feeId":"3","buyNum":1,"feeType":1},{"feeId":"4","buyNum":1,"feeType":1}]
+        }).then(res=>{
+            console.log('$http',res);
+        })
         
     },
     mounted(){
