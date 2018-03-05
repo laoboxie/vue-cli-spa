@@ -7,6 +7,8 @@ const axios = AXIOS.create({
     baseURL: config.api_baseURL,
     timeout: 1000,
 })
+const err_msg = 'error_msg'; //这里是接口返回的数据的message
+
 //请求时的拦截器
 axios.interceptors.request.use(config =>{
     // 发送请求之前做一些处理,loading...
@@ -18,60 +20,26 @@ axios.interceptors.request.use(config =>{
 
 // 请求后的拦截器
 axios.interceptors.response.use(response =>{
-    console.log('response',response);
-
+    //响应成功后的处理
     return response
 },error =>{
-    // 当响应异常时做一些处理
+    // 响应异常时做一些处理
     // 这里我们把错误信息扶正, 后面就不需要写 catch 了
-    //console.warn('error',error);
-    console.log('error.response',error.response);
+
     let failStatus = [400];
     if (failStatus.indexOf(error.response.status)<0) {
+        //这里是失败响应的提示
         console.log('网络异常，请重试！');
     }else{
-        console.log(error.response.data.error_msg);
+        //这里是接口返回信息的提示
+        console.log(error.response.data[err_msg]);
     }
 
-    return Promise.reject(error.response)
-    //return Promise.resolve(error.response)
+    //return Promise.reject(error.response)
+    console.warn(error)
+    return Promise.resolve(error.response)
 })
 
-function checkHttpStatus(res) {
-    // 如果http状态码正常，则直接返回数据
-    // if (res && (res.status === 200 || res.status === 304 || res.status === 400)) {
-    //     return res;
-    // }else {
-    //     res.httpStatus = false;
-    //     res.tip = '网络异常，请重试！';
-    //     return res;
-    // }
-    let successStatus = [200,304,400];
-    if (successStatus.indexOf(res.status)<0) {
-        res.httpStatus = false;
-        res.tip = '网络异常，请重试！';
-    }
-    return res;
-}
-
-function checkSuccessState(res) {
-    if (res.httpStatus===false) {
-        //在这里处理请求失败的操作，如网络异常提示
-        console.log(res.tip)
-        return {
-            data:res.data,
-            success:false,
-            message:res.tip
-        }
-    }else{
-        if (res.data && !res.data.success) {
-            //在这里处理接口返回的错误信息提示
-            console.log(res.data.error_msg)
-        }
-    }
-
-    return res.data;
-}
 
 const httpServer = (opts, data) =>{
     // 公共参数
@@ -96,15 +64,6 @@ const httpServer = (opts, data) =>{
     return  axios(httpDefaultOpts).catch((res) =>{
                 console.warn(res);
             })
-
-            // .then((res) =>{
-            //     return Promise.resolve(checkHttpStatus(res));
-            // })
-            //.then((res) =>{
-            //     return Promise.resolve(checkSuccessState(res));  
-            // }).catch((res) =>{
-            //     console.warn(res);
-            // })
 
 }
 

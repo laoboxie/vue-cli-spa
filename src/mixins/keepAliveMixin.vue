@@ -1,6 +1,4 @@
-<template>
-    <div></div>
-</template>
+
 <script>
     export default {
         data () {
@@ -9,29 +7,22 @@
             }
         },
         methods:{
-            scrollToSavedPosition(){
+            scrollToSavedPosition(type){
+
                 this.$nextTick(()=>{
                     let savedPosition = this.$route.query.savedPosition;
-                    if (savedPosition&&savedPosition.y>=0&&savedPosition.x>=0) {
-                        window.scrollTo(savedPosition.x, savedPosition.y);
-                        this.$route.query.savedPosition={};
-                        console.log('created nextTick savedPosition',this.$route.query.savedPosition);
+                    if (savedPosition&&savedPosition.y>=0) {
+                        window.scrollTo(0, savedPosition.y);
+                        console.log(type,this.$route.query.savedPosition);
+                        //this.$route.query.savedPosition={};
+                    }else{
+                        window.scrollTo(0, 0);
                     }
                     
                 })
             }
         },
-        activated(){
-            this.$nextTick(()=>{
-                let savedPosition = this.$route.query.savedPosition;
-                if (savedPosition&&savedPosition.y>=0&&savedPosition.x>=0) {
-                    window.scrollTo(savedPosition.x, savedPosition.y);
 
-                    console.log('activated nextTick savedPosition',this.$route.query.savedPosition);
-                }
-                
-            })
-        },
         created(){
 
         },

@@ -28,6 +28,7 @@ export default {
     data () {
         return {
             nums: 0,
+            created:false,
         }
     },
     computed: {
@@ -43,32 +44,41 @@ export default {
             deep: true
         },
     },
+    methods:{
+        getData(fn){
+            let promise = new Promise((resolve,reject)=>{
+                setTimeout(()=>{
+                    this.nums = 1000;
+                    resolve();
+                    fn && fn();
+                },1000)
+            })
+            return promise;
+        }
+    },
     created(){
-        setTimeout(()=>{
-            this.nums = 1000;
-            this.scrollToSavedPosition();
-        },1000)
+        
     },
     mounted(){
 
     },
-
-    // beforeRouteEnter (to, from, next) {
-    //     if(from.path.includes('demo')){
-    //         to.query.savedPosition={};
-    //         next();
-    //     }else{
-    //         next();
-    //     }
-    // },
-    // beforeRouteLeave (to, from, next) {
-    //     if(to.meta.keepAlive===true&&from.meta.keepAlive===true){
-    //         this.$destroy();
-    //         next();
-    //     }else{
-    //         next();
-    //     }
-    // },
+    activated(){
+        console.log('activated');
+        if (this.$route.query.refresh==true) {
+            window.scrollTo(0,0);
+            this.nums=0;
+            this.getData();
+        }
+    },
+    beforeRouteEnter (to, from, next) {
+        if(from.path.includes('demo')){
+            to.query.refresh=true;
+            next();
+        }else{
+            to.query.refresh=false;
+            next();
+        }
+    },
 }
 </script>
 

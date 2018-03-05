@@ -1,6 +1,6 @@
 <template>
 <div>
-    <p v-for="(num,index) in nums" @click="$router.push('/list')">
+    <p v-for="(num,index) in nums" @click="$router.push({path:'/list',query:{'a':'a'}})">
         {{num}}
     </p>
 </div>
@@ -46,10 +46,13 @@ export default {
         },
     },
     created(){
+        console.log('test',this.$route);
         setTimeout(()=>{
             this.nums = 2000;
-            this.scrollToSavedPosition();
+            //this.scrollToSavedPosition();
         },1000);
+        return ;
+
 
         //storage
         storage.session.set('sessionkey',[1,{'a':undefined,'c':'c'},{'b':NaN}]);
@@ -83,14 +86,6 @@ export default {
     mounted(){
 
     },
-    // beforeRouteLeave (to, from, next) {
-    //     if(to.meta.keepAlive===true&&from.meta.keepAlive===true){
-    //         this.$destroy();
-    //         next();
-    //     }else{
-    //         next();
-    //     }
-    // },
 }
 </script>
 

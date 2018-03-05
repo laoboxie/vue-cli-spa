@@ -14,15 +14,6 @@ export default  [
 		}
 	},
 	{
-		path: '/hello',
-		name: 'hello',
-		component: resolve => require(['@/components/HelloWorld.vue'],resolve),
-		meta:{
-			keepAlive: true,
-			requiresAuth: true
-		}
-	},
-	{
 		path: '/list',
 		name: 'list',
 		component: resolve => require(['@/components/list.vue'],resolve),
@@ -31,4 +22,14 @@ export default  [
 			requiresAuth: true
 		}
 	},
+	{
+		path: '/hello',
+		name: 'hello',
+		component: resolve => require(['@/components/HelloWorld.vue'],resolve),
+		meta:{
+			keepAlive: false,
+			requiresAuth: true
+		}
+	},
+
 ];

@@ -7,26 +7,24 @@ Vue.use(Router)
 
 //返回上一页，滚动到原位置
 const scrollBehavior = (to, from, savedPosition) => {
-	// console.log('to',to);
-	// console.log('from',from);
-	// console.log('savedPosition', savedPosition);
+
 
 	if (savedPosition) {
 		// savedPosition is only available for popstate navigations.
 		
-		if (to.matched.some(record => record.meta.keepAlive)) {
-			console.log('scrollBehavior',savedPosition);
-			to.query.savedPosition = savedPosition; //异步组件需要渲染完成再滚动，这里记录下原位置
-		}
-		
+		// if (to.matched.some(record => record.meta.keepAlive)) {
+		// 	console.log('scrollBehavior',savedPosition);
+		// 	to.query.savedPosition = savedPosition; //异步组件需要渲染完成再滚动，这里记录下原位置
+		// }
+		//console.log('scrollBehavior',savedPosition);
 		return savedPosition
 	} else {
 		const position = {}
 		// new navigation.
 		// scroll to anchor by returning the selector
-		if (to.hash) {
-			position.selector = to.hash
-		}
+		// if (to.hash) {
+		// 	position.selector = to.hash
+		// }
 		// check if any matched route config has meta that requires scrolling to top
 		if (to.matched.some(m => m.meta.scrollToTop)) {
 			// cords will be used if no selector is provided,
@@ -42,7 +40,7 @@ const scrollBehavior = (to, from, savedPosition) => {
 
 const router = new Router({
 	routes,
-	scrollBehavior,
+	//scrollBehavior,
 })
 
 //登陆鉴权
