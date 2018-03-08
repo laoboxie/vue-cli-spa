@@ -1,5 +1,6 @@
 <template>
 <div>
+    <div class="img"></div>
     <p v-for="(num,index) in nums" @click="$router.push({path:'/list',query:{'a':'a'}})">
         {{num}}
     </p>
@@ -84,15 +85,24 @@ export default {
         
     },
     mounted(){
-
+        console.log('style',this.$style);
     },
 }
 </script>
 
 
-<style scoped>
-    div{
+<style  >
+    p{
         text-align: center;
         background-color: #ccc;
+    }
+    .red{
+        color: red;
+    }
+    .img{
+        width: 100%;
+        height: 100px;
+        background-image: url(../../assets/images/bg.png);
+        background-size: 100% 100%;
     }
 </style>
