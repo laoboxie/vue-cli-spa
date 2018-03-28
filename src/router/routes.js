@@ -11,7 +11,26 @@ export default  [
 		meta:{
 			keepAlive: false,
 			requiresAuth: true
-		}
+		},
+		children:[
+			{
+				path: 'list',
+				component: resolve => require(['@/components/list.vue'],resolve),
+				meta:{
+					keepAlive: false,
+					requiresAuth: true
+				}
+			},
+			{
+				path: 'hello',
+				component: resolve => require(['@/components/HelloWorld.vue'],resolve),
+				meta:{
+					keepAlive: false,
+					requiresAuth: true
+				}
+			},
+
+		],
 	},
 	{
 		path: '/list',

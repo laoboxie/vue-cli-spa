@@ -1,14 +1,22 @@
 <template>
-<div>
+<div class="Router">
     <div class="img"></div>
+    <div @click="$router.push('/demo/')">demo</div>
+    <div @click="$router.push('list')">list</div>
+    <div @click="$router.push('hello')">hello</div>
+    <input type="text" name="">
     <p v-for="(num,index) in nums" @click="$router.push({path:'/list',query:{'a':'a'}})">
         {{num}}
     </p>
+    <transition :name="transitionName">
+        <router-view class="child-view"></router-view>
+    </transition>
 </div>
 </template>
 
 <script>
 import keepAliveMixin from '../../mixins/keepAliveMixin.vue'
+import childViewMixin from '../../mixins/childView.vue'
 import * as md5 from '../../assets/js/md5.js'
 import guid from '../../assets/js/guid.js'
 import storage from '../../assets/js/storage.js'
@@ -17,7 +25,7 @@ import axios from 'axios'
 import qs from 'qs'
 export default {
     name: '',
-    mixins:[keepAliveMixin],
+    mixins:[keepAliveMixin,childViewMixin],
     props:{
         age: {
             type: Number,
@@ -47,9 +55,9 @@ export default {
         },
     },
     created(){
-        console.log('test',this.$route);
+        console.log('test123',this.$route);
         setTimeout(()=>{
-            this.nums = 2000;
+            this.nums = 15;
             //this.scrollToSavedPosition();
         },1000);
         return ;

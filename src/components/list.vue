@@ -1,6 +1,9 @@
 <template>
 <div>
-<div>
+    <div v-for="(num,index) in 100" @click="$router.push('/hello')">
+        {{num}}
+    </div>
+<div>  
     <div v-for="(num,index) in nums" @click="$router.push('/hello')">
         {{num}}
     </div>

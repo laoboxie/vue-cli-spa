@@ -1,3 +1,4 @@
+<script>
 import url from '../assets/js/url.js'
 import config from '../config.js'
 export default {
@@ -56,3 +57,4 @@ export default {
     mounted(){
     }
 }
+</script>
