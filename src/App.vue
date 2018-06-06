@@ -13,8 +13,14 @@
 </template>
 
 <script>
+import keepAliveMixin from './mixins/keepAliveMixin.vue'
+import childViewMixin from './mixins/childView.vue'
 export default {
-  name: 'App'
+  name: 'App',
+  mixins:[keepAliveMixin,childViewMixin],
+  created(){
+    console.log('app $route',this.$route)
+  }
 }
 </script>
 

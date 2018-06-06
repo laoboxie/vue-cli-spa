@@ -5,7 +5,6 @@ import config from '../config.js'
 
 const axios = AXIOS.create({
     baseURL: config.api_baseURL,
-    timeout: 1000,
 })
 const err_msg = 'error_msg'; //这里是接口返回的数据的message
 
@@ -37,7 +36,7 @@ axios.interceptors.response.use(response =>{
 
     //return Promise.reject(error.response)
     console.warn(error)
-    return Promise.resolve(error.response)
+    return Promise.reject(error.response)
 })
 
 
